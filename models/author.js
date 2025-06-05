@@ -23,13 +23,13 @@ AuthorSchema.virtual("url").get(function () {
 AuthorSchema.virtual("lifespan").get(function () {
   let lifetime_string = "";
   if (this.date_of_birth) {
-    lifetime_string = DateTime.fromJSDate(this.date_of_birth).toLocaleString(
+    lifetime_string = DateTime.fromJSDate(this.date_of_birth).setLocale("ja").toLocaleString(
       DateTime.DATE_MED
     );
   }
   lifetime_string += " - ";
   if (this.date_of_death) {
-    lifetime_string += DateTime.fromJSDate(this.date_of_death).toLocaleString(
+    lifetime_string += DateTime.fromJSDate(this.date_of_death).setLocale("ja").toLocaleString(
       DateTime.DATE_MED
     );
   }

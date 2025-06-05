@@ -8,7 +8,7 @@ const asyncHandler = require("express-async-handler");
 exports.genre_list = asyncHandler(async (req, res, next) => {
   const allGenres = await Genre.find().sort({ name: 1 }).exec();
   res.render("genre_list", {
-    title: "Genre List",
+    title: "ジャンル一覧",
     list_genres: allGenres,
   });
 });
@@ -28,7 +28,7 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
   }
 
   res.render("genre_detail", {
-    title: "Genre Detail",
+    title: "ジャンル情報",
     genre: genre,
     genre_books: booksInGenre,
   });
@@ -36,13 +36,13 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
 
 // Display Genre create form on GET.
 exports.genre_create_get = (req, res, next) => {
-  res.render("genre_form", { title: "Create Genre" });
+  res.render("genre_form", { title: "ジャンルを追加" });
 };
 
 // Handle Genre create on POST.
 exports.genre_create_post = [
   // Validate and sanitize the name field.
-  body("name", "Genre name must contain at least 3 characters")
+  body("name", "ジャンル名は3文字以上にしてください。")
     .trim()
     .isLength({ min: 3 })
     .escape(),
@@ -58,7 +58,7 @@ exports.genre_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
       res.render("genre_form", {
-        title: "Create Genre",
+        title: "ジャンルを追加",
         genre: genre,
         errors: errors.array(),
       });
@@ -94,7 +94,7 @@ exports.genre_delete_get = asyncHandler(async (req, res, next) => {
   }
 
   res.render("genre_delete", {
-    title: "Delete Genre",
+    title: "ジャンルを削除",
     genre: genre,
     genre_books: booksInGenre,
   });
@@ -111,7 +111,7 @@ exports.genre_delete_post = asyncHandler(async (req, res, next) => {
   if (booksInGenre.length > 0) {
     // Genre has books. Render in same way as for GET route.
     res.render("genre_delete", {
-      title: "Delete Genre",
+      title: "ジャンルを削除",
       genre: genre,
       genre_books: booksInGenre,
     });
@@ -134,13 +134,13 @@ exports.genre_update_get = asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  res.render("genre_form", { title: "Update Genre", genre: genre });
+  res.render("genre_form", { title: "ジャンルを更新", genre: genre });
 });
 
 // Handle Genre update on POST.
 exports.genre_update_post = [
   // Validate and sanitize the name field.
-  body("name", "Genre name must contain at least 3 characters")
+  body("name", "ジャンル名は3文字以上にしてください。")
     .trim()
     .isLength({ min: 3 })
     .escape(),
@@ -159,7 +159,7 @@ exports.genre_update_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values and error messages.
       res.render("genre_form", {
-        title: "Update Genre",
+        title: "ジャンルを更新",
         genre: genre,
         errors: errors.array(),
       });
